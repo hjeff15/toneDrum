@@ -4,7 +4,7 @@ let playButton;
 let pat4,pat5,pat6;
 let bpmCTRL;
 let drums;
-let rev;
+let rev, del;
 let hh,clap,bass,snare,crash,tom;
 
 //============== REVERB BUTTONS==================
@@ -122,8 +122,10 @@ function setup(){
 	revSecSlider.parent("reverb_controls");
 	revSecSlider.input( () => {rev.set(revSecSlider.value(),30, false)})
 
-	delay = new p5.Delay();
-	// delay.process(hh, 0.12, .7, 2300);
+	del = new p5.Delay();
+	del.delayTime(0.4);
+	del.feedback(0.2);
+	del.setType('pingPong');
 	
 	
 //==============SEQUENCER==============
@@ -173,26 +175,32 @@ function handleReverb(e){
 		if(event === "hh"){
 			hh.disconnect();
 			hh.connect();
+			hhDelay.checked = false;
 		}
 		if(event === "clap"){
 			clap.disconnect();
 			clap.connect();
+			clapDelay.checked = false;
 		}
 		if(event === "bass"){
 			bass.disconnect();
 			bass.connect();
+			bassDelay.checked = false;
 		}
 		if(event === "snare"){
 			snare.disconnect();
 			snare.connect();
+			snareDelay.checked = false;
 		}
 		if(event === "crash"){
 			crash.disconnect();
 			crash.connect();
+			crashDelay.checked = false;
 		}
 		if(event === "tom"){
 			tom.disconnect();
 			tom.connect();
+			tomDelay.checked = false;
 		}
 	}
 }
@@ -202,40 +210,60 @@ function handleDelay(e){
 	let event = e.target.parentElement.parentElement.parentElement.id;
 	if(e.target.checked === true){
 		if(event === "hh"){
-			hh.connect(delay)
-			delay.connect();
-			delay.process(hh, 0.5, .4, 6000);
+			hh.connect(del);
 		}
 		if(event === "clap"){
-			delay.connect();
-			delay.process(clap, 0.5, .4, 6000);
+			clap.connect(del);
 		}
 		if(event === "bass"){
-			delay.connect();
-			delay.process(bass, 0.5, .4, 6000);
+			bass.connect(del);
 		}
 		if(event === "snare"){
-			delay.connect();
-			delay.process(snare, 0.5, .4, 6000);
+			snare.connect(del);
 		}
 		if(event === "crash"){
-			delay.connect();
-			delay.process(crash, 0.5, .4, 6000);
+			crash.connect(del);
 		}
 		if(event === "tom"){
-			delay.connect();
-			delay.process(tom, 0.5, .4, 6000);
+			tom.connect(del);
 		}		
 	}else if(e.target.checked === false){
-		console.log(e.target.checked);
-		delay.disconnect();
+		if(event === "hh"){
+			hh.disconnect();
+			hh.connect();
+			hhRev.checked = false;
+		}
+		if(event === "clap"){
+			clap.disconnect();
+			clap.connect();
+			clapRev.checked = false;
+		}
+		if(event === "bass"){
+			bass.disconnect();
+			bass.connect();
+			bassRev.checked = false;
+		}
+		if(event === "snare"){
+			snare.disconnect();
+			snare.connect();
+			snareRev.checked = false;
+		}
+		if(event === "crash"){
+			crash.disconnect();
+			crash.connect();
+			crashRev.checked = false;
+		}
+		if(event === "tom"){
+			tom.disconnect();
+			tom.connect();
+			tomRev.checked = false;
+		}
 		
 	}
 }
 
 // ===================== PLAY BUTTON ===============
 function playPressed(){
-	console.log("Play is pressed")
 	if(hh.isLoaded() && clap.isLoaded && bass.isLoaded()){
 		getAudioContext().resume();
 		if(!drums.isPlaying){
