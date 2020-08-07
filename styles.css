@@ -1,0 +1,216 @@
+* {
+    box-sizing: border-box;
+}
+
+h1{
+    font-weight: 800;
+    color: white;
+    grid-area: header;
+}
+
+body{
+    background: #c0cfd8;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+}
+
+canvas{
+    grid-area: sequencer;
+    width: auto;
+    border-style: 1px solid black;
+    background: black;
+    border-radius: 10px;
+    width: 555px;
+    height: 140px;
+}
+
+.container{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 10% 25% 1fr 1fr 10%;
+    grid-template-areas: 
+        "header header header volume"
+        "sequencer sequencer sequencer volume"
+        "hh clap bass effects"
+        "snare crash tom effects"
+        "control control control control"
+}
+
+.drum_panel{
+    margin: 10px;
+    border-radius: 40px;
+    background: #c0cfd8;
+    box-shadow:  18px -18px 36px #a3b0b8, 
+                 -18px 18px 36px #ddeef8;
+}
+
+.drum_panel p {
+    margin: auto 70px;
+    font-weight: 800;
+}
+
+#sequencer{
+    grid-area: sequencer;
+}
+#sequencer p{
+    margin: 0;
+}
+
+#volume{
+    grid-area: volume;
+}
+
+#bass{
+    grid-area: bass;
+}
+
+#hh{
+    grid-area: hh;
+}
+
+#crash{
+    grid-area: crash;
+}
+
+#snare{
+    grid-area: snare;
+}
+
+#clap{
+    grid-area: clap;
+}
+
+#tom{
+    grid-area: tom;
+}
+
+#control{
+    grid-area: control;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#control button{
+    color: white;
+    border-radius: 20px;
+    border-color: white;
+    background: #c0cfd8;
+    box-shadow:  18px -18px 36px #a3b0b8, 
+                 -18px 18px 36px #ddeef8;
+    margin-top: 21px;
+    margin-right: 45px;
+    padding: 5px 60px 5px 60px;
+}
+
+#effects{
+    grid-area: effects;
+}
+
+/* TOGGLES */
+.label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 24px;
+    margin-top: 3px;
+}
+
+.label-text {
+    margin-left: 16px;
+}
+
+.toggle {
+    isolation: isolate;
+    position: relative;
+    height: 20px;
+    width: 60px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #c0cfd8;
+    box-shadow:  18px -18px 36px #a3b0b8, 
+                 -18px 18px 36px #d8d9da,
+                 -2px -2px 8px 0px #ffffff;
+}
+
+.toggle-state {
+    display: none;
+}
+
+.indicator {
+    height: 100%;
+    width: 200%;
+    background: #c0cfd8;
+    border-radius: 15px;
+    transform: translate3d(-75%, 0, 0);
+    transition: transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
+    box-shadow:
+        -8px -4px 8px 0px #a3b0b8,
+        8px 4px 12px 0px #99a4ba;
+}
+
+.toggle-state:checked ~ .indicator {
+    transform: translate3d(25%, 0, 0);
+    background: rgba(191, 5, 5, 0.4);
+}
+/* SLIDERS */
+.range-wrap{
+    position: relative;
+    padding-left: 30px;
+    background: none;
+    padding-top: 10px;
+}
+
+.range-wrap p {
+    font-size: 0.8em;
+    margin-top: -10px;
+    margin-left: auto;
+}
+
+.range-wrap::before {
+    content: "";
+    background: linear-gradient(to right, #edf0f4, #99a4ba);
+    width: 75%;
+    height: 6px;
+    display: block;
+    position: absolute;
+    border-radius: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: height 100ms ease;
+  }
+
+  .range{
+    width: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .slider{
+    background: white;
+    border: 3px solid #cbd2da;
+    position: absolute;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Remove pointer events on Bubble so user can click on the actual thumb beaneath it!  */
+    color: transparent;
+    display: grid;
+    place-items: center; /*  Place the number on the center  */
+    /* font-weight: bold; */
+    transition: color 100ms ease, transform 100ms ease;
+    user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
+}
+
+.range-wrap:hover .slider,
+.range-wrap:focus .slider {
+  color: black;
+  transform: translateY(-50%) scale(1.5);
+  padding: 0.1em;
+}
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../LIBRARIES/p5/p5.js"></script>
+    <script src="../LIBRARIES/p5/addons/p5.sound.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;800&display=swap" rel="stylesheet">
+    <title>toneDrum</title>
+</head>
+<body>
+    <!-- We need;
+    1)  a sequence visualiser
+    2) 6 panels inc. bass, hh, crash, snare, clap and tom/other
+    3) play and stop buttons
+    4) each panel to have it's own controls
+    5) Volume control-->
+    
+        <div class="container">
+            <h1>toneDrum___</h1>
+            <div id="sequencer">
+                <p>SEQUENCER</p>
+                <div id="sketch_holder"></div>
+            </div>
+            <div id="volume" class="drum_panel">
+                <p>Machine Controls</p>
+            </div>
+<!--HH PANEL  -->
+            <div class="drum_panel" id="hh">
+                <p>HI HAT</p>
+<!-- toggle switches -->
+                <label class="label">
+                    <div class="toggle">
+                      <input id="hh_reverb" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="hh_delay" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="hh_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="hh_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="hh_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+<!--CLAP PANEL  -->
+            <div class="drum_panel" id="clap">
+                <p>CLAP</p>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="clap_reverb" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="clap_delay"  class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="clap_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="clap_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="clap_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+<!-- BASS PANEL -->
+            <div class="drum_panel" id="bass">
+                <p>KICK</p>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="bass_reverb" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="bass_delay"  class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="bass_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="bass_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="bass_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+<!-- SNARE PANEL -->
+            <div class="drum_panel" id="snare">
+                <p>SNARE</p>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="snare_reverb" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="snare_delay" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="snare_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="snare_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="snare_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+<!-- CRASH PANEL -->
+            <div class="drum_panel" id="crash">
+                <p>CRASH</p>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="crash_reverb" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="crash_delay" class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="clap_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="clap_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="clap_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+<!-- TOM PANEL -->
+            <div class="drum_panel" id="tom">
+                <p>TOM</p>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="tom_reverb"  class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Reverb</div>
+                </label>
+                <label class="label">
+                    <div class="toggle">
+                      <input id="tom_delay"  class="toggle-state" type="checkbox" name="check" value="check" />
+                      <div class="indicator"></div>
+                    </div>
+                    <div class="label-text">Delay</div>
+                </label>
+<!-- sliders -->
+                <div id="tom_attack" class="range-wrap">
+                    <p>attack</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="tom_sustain" class="range-wrap">
+                    <p>sustain</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+                <div id="tom_release" class="range-wrap">
+                    <p>release</p>
+                    <input type="range" class="range" min="0" max="100">
+                    <output class="slider"></output>
+                </div>
+            </div>
+            <div id="control" class="drum_panel">
+                <p>Control Panel</p>
+                <button id="play_button">PLAY</button>
+                <button id="stop_button">PAUSE</button>
+            </div>
+            <div class="drum_panel" id="effects">
+                <p>Effects</p>
+                <div class="drum_panel" id="reverb_controls"></div>
+                <div class="drum_panel" id="delay_controls"></div>
+            </div>
+            
+        </div>
+        <script src="app.js"></script>
+</body>
+</html>
+
+<!-- Effect toggle switches taken from https://codepen.io/halvves/pen/ExjxaKj -->
+<!-- Range sliders taken from https://codepen.io/MananTank/pen/NWqewBO -->
