@@ -23,12 +23,18 @@
                 <p>SEQUENCER</p>
                 <div id="sketch_holder"></div>
             </div>
-            <div id="volume" class="drum_panel">
-                <p>Machine Controls</p>
+            <div id="machine_controls" class="drum_panel">
+                <p>MACHINE CONTROLS</p>
+                <div id="volume" class="drum_panel">
+                    <p>Volume</p>
+                </div>
+                <div id="bpm" class="drum_panel">
+                    <p>BPM</p>
+                </div>
             </div>
 <!--HH PANEL  -->
             <div class="drum_panel" id="hh">
-                <p>HI HAT</p>
+                <p id="hh_text">HI HAT</p>
 <!-- toggle switches -->
                 <label class="label">
                     <div class="toggle">
@@ -45,21 +51,13 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="hh_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="hh_speed">
+                    <p>speed</p>
                 </div>
-                <div id="hh_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="hh_vol">
+                    <p>volume</p>
                 </div>
-                <div id="hh_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
-                </div>
+ 
             </div>
 <!--CLAP PANEL  -->
             <div class="drum_panel" id="clap">
@@ -79,15 +77,11 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="clap_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="clap_speed">
+                    <p>speed</p>
                 </div>
-                <div id="clap_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="clap_vol">
+                    <p>volume</p>
                 </div>
                 <div id="clap_release" class="range-wrap">
                     <p>release</p>
@@ -113,15 +107,11 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="bass_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="bass_speed">
+                    <p>speed</p>
                 </div>
-                <div id="bass_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="bass_vol">
+                    <p>volume</p>
                 </div>
                 <div id="bass_release" class="range-wrap">
                     <p>release</p>
@@ -147,15 +137,11 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="snare_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="snare_speed">
+                    <p>speed</p>
                 </div>
-                <div id="snare_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="snare_vol">
+                    <p>volume</p>
                 </div>
                 <div id="snare_release" class="range-wrap">
                     <p>release</p>
@@ -181,15 +167,11 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="clap_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="crash_speed">
+                    <p>speed</p>
                 </div>
-                <div id="clap_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="crash_vol">
+                    <p>volume</p>
                 </div>
                 <div id="clap_release" class="range-wrap">
                     <p>release</p>
@@ -215,15 +197,11 @@
                     <div class="label-text">Delay</div>
                 </label>
 <!-- sliders -->
-                <div id="tom_attack" class="range-wrap">
-                    <p>attack</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="tom_speed">
+                    <p>speed</p>
                 </div>
-                <div id="tom_sustain" class="range-wrap">
-                    <p>sustain</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="effect_wrap" id="tom_vol">
+                    <p>volume</p>
                 </div>
                 <div id="tom_release" class="range-wrap">
                     <p>release</p>
@@ -238,8 +216,12 @@
             </div>
             <div class="drum_panel" id="effects">
                 <p>Effects</p>
-                <div class="drum_panel" id="reverb_controls"></div>
-                <div class="drum_panel" id="delay_controls"></div>
+                <div class="drum_panel effect_wrap" id="reverb_controls">
+                    <p>reverb amount</p>
+                </div>
+                <div class="drum_panel effect_wrap" id="delay_controls">
+                    <p>delay amount</p>
+                </div>
             </div>
             
         </div>
@@ -249,3 +231,5 @@
 
 <!-- Effect toggle switches taken from https://codepen.io/halvves/pen/ExjxaKj -->
 <!-- Range sliders taken from https://codepen.io/MananTank/pen/NWqewBO -->
+<!-- and -->
+<!-- https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ -->

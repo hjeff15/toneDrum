@@ -57,7 +57,7 @@ canvas{
     margin: 0;
 }
 
-#volume{
+#machine_controls{
     grid-area: volume;
 }
 
@@ -67,6 +67,11 @@ canvas{
 
 #hh{
     grid-area: hh;
+}
+
+#hh_text{
+    margin-left: 70px;
+    margin-right: 10px;
 }
 
 #crash{
@@ -103,6 +108,10 @@ canvas{
     margin-top: 21px;
     margin-right: 45px;
     padding: 5px 60px 5px 60px;
+}
+
+#control p {
+    margin-top: 18px;
 }
 
 #effects{
@@ -156,7 +165,9 @@ canvas{
     transform: translate3d(25%, 0, 0);
     background: rgba(191, 5, 5, 0.4);
 }
-/* SLIDERS */
+
+/* ====================START OF PLACEHOLDER SLIDERS =============== */
+
 .range-wrap{
     position: relative;
     padding-left: 30px;
@@ -181,7 +192,7 @@ canvas{
     top: 50%;
     transform: translateY(-50%);
     transition: height 100ms ease;
-  }
+}
 
   .range{
     width: 100%;
@@ -202,10 +213,10 @@ canvas{
     color: transparent;
     display: grid;
     place-items: center; /*  Place the number on the center  */
-    /* font-weight: bold; */
+    font-weight: bold;
     transition: color 100ms ease, transform 100ms ease;
     user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
-}
+} 
 
 .range-wrap:hover .slider,
 .range-wrap:focus .slider {
@@ -214,3 +225,65 @@ canvas{
   padding: 0.1em;
 }
 
+/* ======================END OF PLACE HOLDER SLIDERS */
+
+.effect_slider{
+    margin-left: 33px;
+}
+.effect_wrap p {
+    font-size: 0.8em;
+    margin: 10px auto 0px auto;
+    padding-left: 15px;
+}
+
+.effect_slider{
+    appearance: none;
+    outline: none;
+    background: linear-gradient(to right, #edf0f4, #99a4ba);
+    width: 75%;
+    height: 6px;
+    margin-bottom: auto;
+    border-radius: 50px;
+    /* display: block; */
+}
+
+#master_volume {
+    margin-bottom: 20px;
+}
+
+#master_bpm {
+    margin-bottom: 20px;
+}
+
+.effect_slider[type=range]::-ms-track {
+    /* appearance: none; */
+    width: 50%;
+    cursor: pointer;
+    /* Hides the slider so custom styles can be added */
+    background: transparent; 
+    border-color: transparent;
+    color: transparent;
+}
+
+.effect_slider[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    outline: none;
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    border: 3px solid #cbd2da;
+    border-radius: 50px;
+    background: #ffffff;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    /* pointer-events: none; Remove pointer events on Bubble so user can click on the actual thumb beaneath it!  */
+    /* color: transparent;
+    display: grid;
+    place-items: center;  Place the number on the center 
+    font-weight: bold;
+    transition: color 100ms ease, transform 100ms ease;
+    user-select: none;  Prevent Accidentally highlighting the number while sliding the cursor  */
+}
+  

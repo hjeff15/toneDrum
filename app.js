@@ -80,13 +80,89 @@ function setup(){
     cellWidth = width/beatLength;
     cursorPos = 0;
 
-    hh = loadSound("assets/hh_sample.mp3", () => {} );
+    hh = loadSound("assets/hh_sample.mp3");
     clap = loadSound("assets/clap_sample.mp3", () => {} );
 	bass = loadSound("assets/bass_sample.mp3", () => {} );
 	snare = loadSound("assets/snare.mp3", () => {} );
 	crash = loadSound("assets/crash.mp3", () => {} );
 	tom = loadSound("assets/tom.mp3", () => {} );
 	
+//==========PITCH SLIDERS===================
+	let hhPitch = createSlider(0, 2, 1, 0.05);
+	hhPitch.parent("hh_speed");
+	hhPitch.addClass("effect_slider");
+	hhPitch.id("hh_pitch");
+	hhPitch.input( () => {hh.rate(hhPitch.value())});
+
+	let clapPitch = createSlider(0, 3, 1, 0.05);
+	clapPitch.parent("clap_speed");
+	clapPitch.addClass("effect_slider");
+	clapPitch.id("clap_pitch");
+	clapPitch.input( () => {clap.rate(clapPitch.value())});
+
+	let bassPitch = createSlider(0, 2, 1, 0.05);
+	bassPitch.parent("bass_speed");
+	bassPitch.addClass("effect_slider");
+	bassPitch.id("bass_pitch");
+	bassPitch.input( () => {bass.rate(bassPitch.value())});
+
+	let snarePitch = createSlider(0, 2, 1, 0.05);
+	snarePitch.parent("snare_speed");
+	snarePitch.addClass("effect_slider");
+	snarePitch.id("snare_pitch");
+	snarePitch.input( () => {snare.rate(snarePitch.value())});
+
+	let crashPitch = createSlider(0, 2, 1, 0.05);
+	crashPitch.parent("crash_speed");
+	crashPitch.addClass("effect_slider");
+	crashPitch.id("crash_pitch");
+	crashPitch.input( () => {crash.rate(crashPitch.value())});
+
+	let tomPitch = createSlider(0, 2, 1, 0.05);
+	tomPitch.parent("tom_speed");
+	tomPitch.addClass("effect_slider");
+	tomPitch.id("tom_pitch");
+	tomPitch.input( () => {tom.rate(tomPitch.value())});
+
+//============VOLUME SLIDERS=======================
+
+	let hhVol = createSlider(0, 1, 0.8, 0.01);
+	hhVol.parent("hh_vol");
+	hhVol.addClass("effect_slider");
+	hhVol.id("hh_vol");
+	hhVol.input( () => {hh.amp(hhVol.value())});
+
+	let clapVol = createSlider(0, 1, 0.8, 0.01);
+	clapVol.parent("clap_vol");
+	clapVol.addClass("effect_slider");
+	clapVol.id("clap_vol");
+	clapVol.input( () => {clap.amp(clapVol.value())});
+
+	let bassVol = createSlider(0, 1, 0.8, 0.01);
+	bassVol.parent("bass_vol");
+	bassVol.addClass("effect_slider");
+	bassVol.id("bass_vol");
+	bassVol.input( () => {bass.amp(bassVol.value())});
+
+	let snareVol = createSlider(0, 1, 0.8, 0.01);
+	snareVol.parent("snare_vol");
+	snareVol.addClass("effect_slider");
+	snareVol.id("snare_vol");
+	snareVol.input( () => {snare.amp(snareVol.value())});
+
+	let crashVol = createSlider(0, 1, 0.8, 0.01);
+	crashVol.parent("crash_vol");
+	crashVol.addClass("effect_slider");
+	crashVol.id("crash_vol");
+	crashVol.input( () => {crash.amp(crashVol.value())});
+
+	let tomVol = createSlider(0, 1, 0.8, 0.01);
+	tomVol.parent("tom_vol");
+	tomVol.addClass("effect_slider");
+	tomVol.id("tom_vol");
+	tomVol.input( () => {tom.amp(tomVol.value())});
+
+//=========== END OF PITCH SLIDERS
 
     hPat = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     cPat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
@@ -115,18 +191,32 @@ function setup(){
 		tom.play(time)
 	}, pat6);
 
-//=============EFFECTS=============== 
+//=============EFFECTS===============
+// REVERB 
 	rev = new p5.Reverb();
+	rev.set(5,30,false);
 
-	let revSecSlider = createSlider(0, 10, 5, 0.2);
-	revSecSlider.parent("reverb_controls");
-	revSecSlider.input( () => {rev.set(revSecSlider.value(),30, false)})
+	let revSecSlider = createSlider(0, 10, 5, 0.02);
+	let revDiv = document.getElementById("reverb_controls");
+	revSecSlider.parent(revDiv);
+	revSecSlider.addClass("effect_slider");
+	revSecSlider.id("reverb_amount");
+	revSecSlider.input( () => {rev.set(revSecSlider.value(),30, false)});
 
+// DELAY
 	del = new p5.Delay();
-	del.delayTime(0.4);
-	del.feedback(0.2);
+	del.delayTime(0.1);
+	del.feedback(0.4);//this is the varialble to change on the slider
 	del.setType('pingPong');
-	
+
+	let delTimeSlider = createSlider(0.2,0.7,0.4,0.05);
+	delTimeSlider.parent("delay_controls");
+	delTimeSlider.addClass("effect_slider");
+	delTimeSlider.id("delay_amount");
+	delTimeSlider.input( () => {del.feedback(delTimeSlider.value())});
+	console.log("delTime", delTimeSlider.value());
+
+// COMPRESSOR	
 	
 //==============SEQUENCER==============
     drums = new p5.Part();
@@ -139,12 +229,22 @@ function setup(){
 	drums.addPhrase(tomPhrase);
     drums.addPhrase("seq", sequence, sPat);
 
-//=========== BPM COUNTER =====================
-    bpmCTRL = createSlider(30, 300, 80, 1);
-	bpmCTRL.parent("volume");
+//=========== SET BPM COUNTER =====================
+    bpmCTRL = createSlider(30, 180, 80, 1);
+	bpmCTRL.parent("bpm");
+	bpmCTRL.addClass("effect_slider");
+	bpmCTRL.id("master_bpm");
     bpmCTRL.input( () => {drums.setBPM(bpmCTRL.value())})
 
 	drums.setBPM("80");
+
+// ============SET VOLUME============
+	let volumeSlider = createSlider(0, 1, 0.7, 0.05);
+	volumeSlider.parent("volume");
+	volumeSlider.addClass("effect_slider");
+	volumeSlider.id("master_volume");
+	// input calls function to control para. map()function does not work outside of draw
+	volumeSlider.input ( () => {masterVolume(volumeSlider.value())})
 
     drawMatrix();
 }
@@ -261,14 +361,14 @@ function handleDelay(e){
 		
 	}
 }
-
 // ===================== PLAY BUTTON ===============
 function playPressed(){
 	if(hh.isLoaded() && clap.isLoaded && bass.isLoaded()){
 		getAudioContext().resume();
 		if(!drums.isPlaying){
-			drums.loop()
-			console.log("drums are playing")
+			drums.loop();
+			playButton.style.background = "rgba(191, 5, 5, 0.4)";
+			console.log("drums are playing");
 		} 
 	}else{
 		console.log("oops, drums are not loaded yet!")
@@ -278,6 +378,7 @@ function playPressed(){
 function stopPressed(){
 	if(drums.isPlaying){
 		drums.stop();
+		playButton.style.background = "#c0cfd8";
 		console.log("Loop has stopped");
 	}
 }
