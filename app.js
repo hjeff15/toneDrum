@@ -158,11 +158,11 @@ function setup(){
 //==================SEQUENCE DATA===============
 
     hPat = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    cPat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
-	bPat = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0];
+    cPat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+	bPat = [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0];
 	pat4 = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
 	pat5 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
-	pat6 = [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+	pat6 = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
     sPat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
     hPhrase = new p5.Phrase("hh", (time) => {
@@ -259,7 +259,14 @@ function setup(){
 	bpmCTRL.parent("bpm");
 	bpmCTRL.addClass("effect_slider");
 	bpmCTRL.id("master_bpm");
-    bpmCTRL.input( () => {drums.setBPM(bpmCTRL.value())})
+	bpmCTRL.input( () => {
+		drums.setBPM(bpmCTRL.value());
+		bpmDisplay.textContent = bpmCTRL.value() + "bpm" ;
+	});
+
+	let bpmDisplay = document.getElementById("bpm_reader");
+	bpmDisplay.textContent = bpmCTRL.value() + "bpm" ;
+
 
 	drums.setBPM("80");
 
@@ -273,6 +280,9 @@ function setup(){
 
     drawMatrix();
 }
+
+//--------------END OF SETUP FUNCTION---------------
+
 
 // ===================HANDLE REVERB=============
 
