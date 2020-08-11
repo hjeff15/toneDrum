@@ -4,7 +4,7 @@ let playButton;
 let pat4,pat5,pat6;
 let bpmCTRL;
 let drums;
-let rev, del;
+let rev, del, fuzz, bpFilter;
 let hh,clap,bass,snare,crash,tom;
 
 //============== REVERB BUTTONS==================
@@ -35,40 +35,31 @@ crashDelay.addEventListener("click", handleDelay);
 let tomDelay = document.getElementById("tom_delay");
 tomDelay.addEventListener("click", handleDelay);
 
+//===============FUZZ BUTTONS==================
+let hhFuzz = document.getElementById("hh_fuzz");
+hhFuzz.addEventListener("click", handleFuzz);
+let clapFuzz = document.getElementById("clap_fuzz");
+clapFuzz.addEventListener("click", handleFuzz);
+let bassFuzz = document.getElementById("bass_fuzz");
+bassFuzz.addEventListener("click", handleFuzz);
+let snareFuzz = document.getElementById("snare_fuzz");
+snareFuzz.addEventListener("click", handleFuzz);
+let crashFuzz = document.getElementById("crash_fuzz");
+crashFuzz.addEventListener("click", handleFuzz);
+let tomFuzz = document.getElementById("tom_fuzz");
+tomFuzz.addEventListener("click", handleFuzz);
 
-//==============DRUM SLIDERS=====================
-const allRanges = document.querySelectorAll(".range-wrap");
-allRanges.forEach((wrap) => {
-  const range = wrap.querySelector(".range");
-  const slider = wrap.querySelector(".slider");
- 
+//==============EQ BUTTON========================
+let eqButton = document.getElementById('eq');
+eqButton.addEventListener("click", handleEq);
 
-  range.addEventListener("input", () => {
-    setSlider(range, slider);
-  });
-
-  // setting slider on DOM load
-  setSlider(range, slider);
-});
-
-function setSlider(range, slider) {
-	const val = range.value;
-	console.log(val);
-	const min = range.min || 0;
-	const max =  range.max || 100;
-
-	const offset = Number(((val - min) * 100) / (max - min));
-
-	slider.textContent = val;
-
-	// yes, 14px is a magic number
-	slider.style.left = `calc(${offset}% - 14px)`;
-}
 //====================SETUP P5 CANVAS===================
 function setup(){
-    const canvas = createCanvas(555, 140);
+	const canvas = createCanvas(555, 140);
 	canvas.parent("sketch_holder");
 	canvas.mousePressed(canvasPressed);
+
+	// const secondCanvas = createCanvas(105,105);
 
     playButton = document.getElementById("play_button");
 	playButton.addEventListener("click", playPressed);
@@ -160,9 +151,11 @@ function setup(){
 	tomVol.parent("tom_vol");
 	tomVol.addClass("effect_slider");
 	tomVol.id("tom_vol");
-	tomVol.input( () => {tom.amp(tomVol.value())});
+	tomVol.input( () => {
+		tom.amp(tomVol.value());
+	});
 
-//=========== END OF PITCH SLIDERS
+//==================SEQUENCE DATA===============
 
     hPat = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     cPat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
@@ -213,10 +206,42 @@ function setup(){
 	delTimeSlider.parent("delay_controls");
 	delTimeSlider.addClass("effect_slider");
 	delTimeSlider.id("delay_amount");
-	delTimeSlider.input( () => {del.feedback(delTimeSlider.value())});
-	console.log("delTime", delTimeSlider.value());
+	delTimeSlider.input( () => {
+		del.feedback(delTimeSlider.value());
+		console.log("delTime", delTimeSlider.value());
+	});
+		
 
-// COMPRESSOR	
+// DISTORTION
+	fuzz = new p5.Distortion();
+	let fuzzAmnt = createSlider(0, 1, 0.8, 0.01);
+	fuzzAmnt.parent("fuzz_controls");
+	fuzzAmnt.addClass("effect_slider");
+	fuzzAmnt.id("fuzz_amount");
+	fuzzAmnt.input( () => {
+		fuzz.output.gain.value = fuzzAmnt.value();
+	});
+
+// FILTER
+	bpFilter = new p5.LowPass();
+	bpFilter.freq(1050);
+    bpFilter.res(25);
+	let eqFreqSlider = createSlider(10, 2050, 1050, 10);
+	eqFreqSlider.parent("eq_freq");
+	eqFreqSlider.addClass("effect_slider");
+	eqFreqSlider.id("freq_amount");
+	eqFreqSlider.input( () => {
+		bpFilter.freq(eqFreqSlider.value());
+	})
+
+	let eqResSlider = createSlider(1, 10, 5, 0.5);
+	eqResSlider.parent("eq_res");
+	eqResSlider.addClass("effect_slider");
+	eqResSlider.id("res_amount");
+	eqResSlider.input( () => {
+		bpFilter.res(eqResSlider.value());
+		console.log(bpFilter.res);
+	})
 	
 //==============SEQUENCER==============
     drums = new p5.Part();
@@ -229,7 +254,7 @@ function setup(){
 	drums.addPhrase(tomPhrase);
     drums.addPhrase("seq", sequence, sPat);
 
-//=========== SET BPM COUNTER =====================
+//=========== SET MASTER BPM =====================
     bpmCTRL = createSlider(30, 180, 80, 1);
 	bpmCTRL.parent("bpm");
 	bpmCTRL.addClass("effect_slider");
@@ -238,7 +263,7 @@ function setup(){
 
 	drums.setBPM("80");
 
-// ============SET VOLUME============
+// ============SET MASTER VOLUME============
 	let volumeSlider = createSlider(0, 1, 0.7, 0.05);
 	volumeSlider.parent("volume");
 	volumeSlider.addClass("effect_slider");
@@ -250,117 +275,128 @@ function setup(){
 }
 
 // ===================HANDLE REVERB=============
+
 function handleReverb(e){
-	let event = e.target.parentElement.parentElement.parentElement.id;
-	if(e.target.checked === true){
-		if(event === "hh"){
-			hh.connect(rev);
-		}
-		if(event === "clap"){
-			clap.connect(rev);
-		}
-		if(event === "bass"){
-			bass.connect(rev);
-		}
-		if(event === "snare"){
-			snare.connect(rev);
-		}
-		if(event === "crash"){
-			crash.connect(rev);
-		}
-		if(event === "tom"){
-			tom.connect(rev);
-		}		
-	}else if(e.target.checked === false){
-		if(event === "hh"){
-			hh.disconnect();
-			hh.connect();
-			hhDelay.checked = false;
-		}
-		if(event === "clap"){
-			clap.disconnect();
-			clap.connect();
-			clapDelay.checked = false;
-		}
-		if(event === "bass"){
-			bass.disconnect();
-			bass.connect();
-			bassDelay.checked = false;
-		}
-		if(event === "snare"){
-			snare.disconnect();
-			snare.connect();
-			snareDelay.checked = false;
-		}
-		if(event === "crash"){
-			crash.disconnect();
-			crash.connect();
-			crashDelay.checked = false;
-		}
-		if(event === "tom"){
-			tom.disconnect();
-			tom.connect();
-			tomDelay.checked = false;
-		}
+	let event = handleRevDelayId(e);
+	let eventInstrument = event.inst;
+	let otherEffect = event.instDel;
+	if(e.target.checked){
+		eventInstrument.connect(rev);
+	}else if(!e.target.checked){
+		eventInstrument.disconnect();
+		eventInstrument.connect();
+		otherEffect.checked = false
+	}	
+};
+
+//======================= HANDLE DELAY ============
+
+function handleDelay(e){
+	let event = handleRevDelayId(e);
+	let eventInstrument = event.inst;
+	let otherEffect = event.instReverb;
+	if(e.target.checked){
+		eventInstrument.connect(del);
+	}else if(!e.target.checked){
+		eventInstrument.disconnect();
+		eventInstrument.connect();
+		otherEffect.checked = false
+	}	
+};
+
+// =====================HANDLE FUZZ================
+function handleFuzz(e){
+	let event = handleFuzzEventId(e);
+	if(e.target.checked){
+		event.connect(fuzz);
+	}else if(!e.target.checked){
+		event.disconnect();
+		event.connect();
+	}
+};
+
+//==================HANDLE EQ=================
+function handleEq(e){
+	if(e.target.checked){
+		bpFilter.connect();
+		hh.connect(bpFilter);
+		clap.connect(bpFilter);
+		bass.connect(bpFilter);
+		snare.connect(bpFilter);
+		crash.connect(bpFilter);
+		tom.connect(bpFilter);
+	}else{
+		console.log("Not checked");
+		bpFilter.disconnect();
 	}
 }
 
-//======================= HANDLE DELAY ============
-function handleDelay(e){
+// ID HANDLERS
+function handleRevDelayId(e){
 	let event = e.target.parentElement.parentElement.parentElement.id;
-	if(e.target.checked === true){
-		if(event === "hh"){
-			hh.connect(del);
+	// let event = e;
+	if(event==="hh"){
+		let hhObj = {
+			"inst": hh,
+			"instReverb": hhRev,
+			"instDel": hhDelay
 		}
-		if(event === "clap"){
-			clap.connect(del);
+		return hhObj;
+	}else if(event==="clap"){
+		let clapObj = {
+			"inst": clap,
+			"instReverb": clapRev,
+			"instDel": clapDelay
 		}
-		if(event === "bass"){
-			bass.connect(del);
+		return clapObj;
+	}else if(event==="bass"){
+		let bassObj = {
+			"inst": bass,
+			"instReverb": bassRev,
+			"instDel": bassDelay
 		}
-		if(event === "snare"){
-			snare.connect(del);
+		return bassObj;
+	}else if(event==="snare"){
+		let snareObj = {
+			"inst": snare,
+			"instReverb": snareRev,
+			"instDel": snareDelay
 		}
-		if(event === "crash"){
-			crash.connect(del);
+		return snareObj;
+	}else if(event==="crash"){
+		let crashObj = {
+			"inst": crash,
+			"instReverb": crashRev,
+			"instDel": crashDelay
 		}
-		if(event === "tom"){
-			tom.connect(del);
-		}		
-	}else if(e.target.checked === false){
-		if(event === "hh"){
-			hh.disconnect();
-			hh.connect();
-			hhRev.checked = false;
+		return crashObj;
+	}else{
+		let tomObj = {
+			"inst": tom,
+			"instReverb": tomRev,
+			"instDel": tomDelay
 		}
-		if(event === "clap"){
-			clap.disconnect();
-			clap.connect();
-			clapRev.checked = false;
-		}
-		if(event === "bass"){
-			bass.disconnect();
-			bass.connect();
-			bassRev.checked = false;
-		}
-		if(event === "snare"){
-			snare.disconnect();
-			snare.connect();
-			snareRev.checked = false;
-		}
-		if(event === "crash"){
-			crash.disconnect();
-			crash.connect();
-			crashRev.checked = false;
-		}
-		if(event === "tom"){
-			tom.disconnect();
-			tom.connect();
-			tomRev.checked = false;
-		}
-		
+		return tomObj;
 	}
 }
+// handle Fuzz has fewer parents to get to the id than Rev+Delay handler
+function handleFuzzEventId(e){
+	let event = e.target.parentElement.parentElement.id;
+	if(event==="hh"){
+		return hh;
+	}else if(event==="clap"){
+		return clap;
+	}else if(event==="bass"){
+		return bass;
+	}else if(event==="snare"){
+		return snare;
+	}else if(event==="crash"){
+		return crash;
+	}else{
+		return tom;
+	}
+}
+
 // ===================== PLAY BUTTON ===============
 function playPressed(){
 	if(hh.isLoaded() && clap.isLoaded && bass.isLoaded()){
@@ -383,7 +419,7 @@ function stopPressed(){
 	}
 }
 
-// =================== CANVASE SEQUENCER ==============
+// =================== CANVAS SEQUENCER ==============
 function canvasPressed(){
 		let rowClicked = floor(6*mouseY/height);
 		let indexClicked = floor(16*mouseX/width);

@@ -20,7 +20,7 @@ canvas{
     border-style: 1px solid black;
     background: black;
     border-radius: 10px;
-    width: 555px;
+    width: 675px;
     height: 140px;
 }
 
@@ -38,7 +38,7 @@ canvas{
 }
 
 .drum_panel{
-    margin: 10px;
+    margin: 5px;
     border-radius: 40px;
     background: #c0cfd8;
     box-shadow:  18px -18px 36px #a3b0b8, 
@@ -46,10 +46,80 @@ canvas{
 }
 
 .drum_panel p {
-    margin: auto 70px;
+    margin: 0px 70px;
     font-weight: 800;
 }
 
+.control_sliders{
+    margin-top: 20px;
+}
+/* ==========FUZZ BUTTONS=============== */
+
+.fuzz_wrap{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.fuzz_control{
+    color: white;
+    pointer-events: none;
+    border-radius: 20px;
+    border-color: white;
+    border-style: groove;
+    display: inline-flex;
+    outline: none;
+    font-family: 'Orbitron', sans-serif;
+    background: #c0cfd8;
+    box-shadow:  18px 18px 36px #a3b0b8, 
+                 18px -18px -46px #ddeef8;
+    padding: 5px 60px 5px 60px;
+    cursor: pointer;
+}
+
+#hh_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+#clap_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+#bass_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+#snare_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+#crash_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+#tom_fuzz:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+/* ==========EQ Button============== */
+#eq:checked ~ .fuzz_control{
+    box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
+                inset 20px -20px 60px #ddeef8;
+}
+
+.fuzzcheck{
+    position: absolute;
+    width: 160px;
+    height: 31px;
+    opacity: 0;
+}
+
+/* ===================================== */
 #sequencer{
     grid-area: sequencer;
 }
@@ -60,6 +130,11 @@ canvas{
 #machine_controls{
     grid-area: volume;
 }
+
+#machine_controls p {
+    margin-left: 50px;
+}
+
 
 #bass{
     grid-area: bass;
@@ -102,12 +177,14 @@ canvas{
     color: white;
     border-radius: 20px;
     border-color: white;
+    font-family: 'Orbitron', sans-serif;
     background: #c0cfd8;
     box-shadow:  18px -18px 36px #a3b0b8, 
                  -18px 18px 36px #ddeef8;
     margin-top: 21px;
     margin-right: 45px;
     padding: 5px 60px 5px 60px;
+    cursor: pointer;
 }
 
 #control p {
@@ -166,74 +243,22 @@ canvas{
     background: rgba(191, 5, 5, 0.4);
 }
 
-/* ====================START OF PLACEHOLDER SLIDERS =============== */
-
-.range-wrap{
-    position: relative;
-    padding-left: 30px;
-    background: none;
-    padding-top: 10px;
-}
-
-.range-wrap p {
-    font-size: 0.8em;
-    margin-top: -10px;
-    margin-left: auto;
-}
-
-.range-wrap::before {
-    content: "";
-    background: linear-gradient(to right, #edf0f4, #99a4ba);
-    width: 75%;
-    height: 6px;
-    display: block;
-    position: absolute;
-    border-radius: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: height 100ms ease;
-}
-
-  .range{
-    width: 100%;
-    cursor: pointer;
-    opacity: 0;
-  }
-
-  .slider{
-    background: white;
-    border: 3px solid #cbd2da;
-    position: absolute;
-    border-radius: 50%;
-    width: 1.5rem;
-    height: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* Remove pointer events on Bubble so user can click on the actual thumb beaneath it!  */
-    color: transparent;
-    display: grid;
-    place-items: center; /*  Place the number on the center  */
-    font-weight: bold;
-    transition: color 100ms ease, transform 100ms ease;
-    user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
-} 
-
-.range-wrap:hover .slider,
-.range-wrap:focus .slider {
-  color: black;
-  transform: translateY(-50%) scale(1.5);
-  padding: 0.1em;
-}
-
-/* ======================END OF PLACE HOLDER SLIDERS */
 
 .effect_slider{
     margin-left: 33px;
 }
 .effect_wrap p {
     font-size: 0.8em;
-    margin: 10px auto 0px auto;
+    margin: 0px auto 0px auto;
     padding-left: 15px;
+}
+
+.master_effects{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-radius: 50px;
+    box-shadow:  20px 20px 60px #a3b0b8, 
+                20px -20px 60px #ddeef8;
 }
 
 .effect_slider{
@@ -242,6 +267,7 @@ canvas{
     background: linear-gradient(to right, #edf0f4, #99a4ba);
     width: 75%;
     height: 6px;
+    margin-top: 0px;
     margin-bottom: auto;
     border-radius: 50px;
     /* display: block; */
@@ -286,4 +312,5 @@ canvas{
     transition: color 100ms ease, transform 100ms ease;
     user-select: none;  Prevent Accidentally highlighting the number while sliding the cursor  */
 }
+  
   

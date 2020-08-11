@@ -24,11 +24,11 @@
                 <div id="sketch_holder"></div>
             </div>
             <div id="machine_controls" class="drum_panel">
-                <p>MACHINE CONTROLS</p>
-                <div id="volume" class="drum_panel">
+                <p>CONTROLS</p>
+                <div id="volume" class="control_sliders">
                     <p>Volume</p>
                 </div>
-                <div id="bpm" class="drum_panel">
+                <div id="bpm" class="control_sliders">
                     <p>BPM</p>
                 </div>
             </div>
@@ -52,12 +52,16 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="hh_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="hh_vol">
                     <p>volume</p>
                 </div>
- 
+                <div class="fuzz_wrap">
+                    <input id="hh_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="hh_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
+                </div>
             </div>
 <!--CLAP PANEL  -->
             <div class="drum_panel" id="clap">
@@ -78,15 +82,15 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="clap_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="clap_vol">
                     <p>volume</p>
                 </div>
-                <div id="clap_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="fuzz_wrap">
+                    <input id="clap_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="clap_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
                 </div>
             </div>
 <!-- BASS PANEL -->
@@ -108,15 +112,15 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="bass_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="bass_vol">
                     <p>volume</p>
                 </div>
-                <div id="bass_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="fuzz_wrap">
+                    <input id="bass_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="bass_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
                 </div>
             </div>
 <!-- SNARE PANEL -->
@@ -138,15 +142,15 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="snare_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="snare_vol">
                     <p>volume</p>
                 </div>
-                <div id="snare_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="fuzz_wrap">
+                    <input id="snare_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="snare_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
                 </div>
             </div>
 <!-- CRASH PANEL -->
@@ -168,15 +172,15 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="crash_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="crash_vol">
                     <p>volume</p>
                 </div>
-                <div id="clap_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="fuzz_wrap">
+                    <input id="crash_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="crash_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
                 </div>
             </div>
 <!-- TOM PANEL -->
@@ -198,17 +202,18 @@
                 </label>
 <!-- sliders -->
                 <div class="effect_wrap" id="tom_speed">
-                    <p>speed</p>
+                    <p>pitch</p>
                 </div>
                 <div class="effect_wrap" id="tom_vol">
                     <p>volume</p>
                 </div>
-                <div id="tom_release" class="range-wrap">
-                    <p>release</p>
-                    <input type="range" class="range" min="0" max="100">
-                    <output class="slider"></output>
+                <div class="fuzz_wrap">
+                    <input id="tom_fuzz" type="checkbox" class="fuzzcheck">
+                    <label for="tom_fuzz"></label>
+                    <div class="fuzz_control">fuzz</div>
                 </div>
             </div>
+<!-- Control Panel -->
             <div id="control" class="drum_panel">
                 <p>Control Panel</p>
                 <button id="play_button">PLAY</button>
@@ -216,11 +221,25 @@
             </div>
             <div class="drum_panel" id="effects">
                 <p>Effects</p>
-                <div class="drum_panel effect_wrap" id="reverb_controls">
+                <div class="drum_panel effect_wrap master_effects" id="reverb_controls">
                     <p>reverb amount</p>
                 </div>
-                <div class="drum_panel effect_wrap" id="delay_controls">
+                <div class="drum_panel effect_wrap master_effects" id="delay_controls">
                     <p>delay amount</p>
+                </div>
+                <div class="drum_panel effect_wrap master_effects" id="fuzz_controls">
+                    <p>fuzz amount</p>
+                </div>
+                <div class="fuzz_wrap">
+                    <input id="eq" type="checkbox" class="fuzzcheck">
+                    <label for="eq"></label>
+                    <div class="fuzz_control">EQ</div>
+                </div>
+                <div class="drum_panel effect_wrap master_effects" id="eq_freq">
+                    <p>freq</p>
+                </div>
+                <div class="drum_panel effect_wrap master_effects" id="eq_res">
+                    <p>resonance</p>
                 </div>
             </div>
             
