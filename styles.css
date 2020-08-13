@@ -78,36 +78,44 @@ canvas{
 }
 
 #hh_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
 
 #clap_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
+                
 }
 
 #bass_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
 
 #snare_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
 
 #crash_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
 
 #tom_fuzz:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
 /* ==========EQ Button============== */
 #eq:checked ~ .fuzz_control{
+    border-style: ridge;
     box-shadow: inset -20px 20px 60px rgba(191, 5, 5, 0.4), 
                 inset 20px -20px 60px #ddeef8;
 }
@@ -200,9 +208,17 @@ canvas{
     padding-bottom: 25px; 
     margin-right: 10px;
     font-size: 2rem;
-
+    border: 1px solid white;
+    border-radius: 50px;
+    border-style: groove;
+    padding-left: -2px;
+    margin-left: 18px;
 }
 
+p#bpm_reader{
+    display: flex;
+    justify-content: center;
+}
 
 /* TOGGLES */
 .label {
@@ -322,4 +338,70 @@ canvas{
     user-select: none;  Prevent Accidentally highlighting the number while sliding the cursor  */
 }
   
-  
+@media only screen and (max-width: 755px){
+    .container{
+        grid-template-columns: 250px 250px 250px;
+        grid-template-rows: 10% 25% 1fr 1fr  1fr 10%;
+        grid-template-areas: 
+            "header header header"
+            "sequencer sequencer sequencer"
+            "hh clap bass"
+            "snare crash tom"
+            "volume effects effects"
+            "control control control"
+    }
+    #effects.drum_panel,
+    #machine_controls.drum_panel{
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 730px){
+    .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 10% 200px 1fr 1fr 1fr 1fr 1fr 10%;
+        grid-template-areas: 
+            "header header"
+            "sequencer sequencer"
+            "hh clap"
+            "bass snare"
+            "crash tom"
+            "volume volume"
+            "effects effects"
+            "control control"
+    }
+    #bpm_panel{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    #control{
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+@media only screen and (max-width: 588px){
+    .container{
+        grid-template-columns: 100%;
+        grid-template-rows: 100px 200px 200px 200px 200px 200px 200px 200px 300px 470px 100px;
+        grid-template-areas: 
+            "header"
+            "sequencer"
+            "hh"
+            "clap"
+            "bass"
+            "snare"
+            "crash"
+            "tom"
+            "volume"
+            "effects"
+            "control"
+    }
+    #control p{
+        margin-right: 20px;
+    }
+    #control button{
+        margin-right: 20px;
+    }
+}
