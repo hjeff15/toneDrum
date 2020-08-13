@@ -128,6 +128,8 @@ canvas{
 }
 
 /* ===================================== */
+
+/* ============GRID AREAS=============== */
 #sequencer{
     grid-area: sequencer;
 }
@@ -171,6 +173,8 @@ canvas{
 #tom{
     grid-area: tom;
 }
+
+/* ========================== */
 
 #control{
     grid-area: control;
@@ -314,6 +318,7 @@ p#bpm_reader{
     background: transparent; 
     border-color: transparent;
     color: transparent;
+    filter: drop-shadow(30px 10px 4px #4444dd);
 }
 
 .effect_slider[type=range]::-webkit-slider-thumb {
@@ -327,15 +332,9 @@ p#bpm_reader{
     width: 1.5rem;
     height: 1.5rem;
     cursor: pointer;
-    /* top: 50%; */
-    /* transform: translateY(-50%); */
-    /* pointer-events: none; Remove pointer events on Bubble so user can click on the actual thumb beaneath it!  */
-    /* color: transparent;
-    display: grid;
-    place-items: center;  Place the number on the center 
-    font-weight: bold;
-    transition: color 100ms ease, transform 100ms ease;
-    user-select: none;  Prevent Accidentally highlighting the number while sliding the cursor  */
+    -webkit-box-shadow: 6px 11px 18px -5px rgba(0,0,0,0.35);
+    -moz-box-shadow: 6px 11px 18px -5px rgba(0,0,0,0.35);
+    box-shadow: 6px 11px 18px -5px rgba(0,0,0,0.35);
 }
   
 @media only screen and (max-width: 755px){
