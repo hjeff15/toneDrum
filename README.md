@@ -5,7 +5,7 @@
 ToneDrum is a very simple drum machine that can be used in the browser on any device and desktop. It's built using the p5.js Sound Library.
 
 ## Main Features
-![Tonedrum interface](assets/img/toneDrum.jpg)
+![Tonedrum interface](/assets/img/tonedrum.jpg)
 ToneDrum consists of 6 different drum sounds. 
 - hi-hat
 - clap
