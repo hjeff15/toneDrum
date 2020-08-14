@@ -45,6 +45,8 @@ canvas{
                  -18px 18px 36px #ddeef8;
 }
 
+/* change drum panel text to   display: flex;
+                            justify-content: center; */
 .drum_panel p {
     margin: 0px 70px;
     font-weight: 800;
