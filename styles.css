@@ -155,11 +155,6 @@ canvas{
     grid-area: hh;
 }
 
-#hh_text{
-    margin-left: 70px;
-    margin-right: 10px;
-}
-
 #crash{
     grid-area: crash;
 }
@@ -177,6 +172,12 @@ canvas{
 }
 
 /* ========================== */
+
+.drum_panel_pad p{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
 
 #control{
     grid-area: control;
@@ -355,6 +356,11 @@ p#bpm_reader{
     #machine_controls.drum_panel{
         margin-top: 20px;
     }
+    /* .drum_panel_pad p{
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+    } */
 }
 
 @media only screen and (max-width: 730px){
@@ -385,7 +391,7 @@ p#bpm_reader{
 @media only screen and (max-width: 588px){
     .container{
         grid-template-columns: 100%;
-        grid-template-rows: 100px 200px 200px 200px 200px 200px 200px 200px 300px 470px 100px;
+        grid-template-rows: 100px 200px 200px 200px 200px 200px 200px 200px 300px 470px 150px;
         grid-template-areas: 
             "header"
             "sequencer"
@@ -399,10 +405,24 @@ p#bpm_reader{
             "effects"
             "control"
     }
+    #control{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        /* margin: 0px; */
+    }
     #control p{
-        margin-right: 20px;
+        display: none;
     }
     #control button{
-        margin-right: 20px;
+        padding: 10px 0px 10px 0px;
+        margin-left: 22px;
+        margin-right: 22px;
+    }
+}
+
+@media only screen and (max-width: 587px){
+    .container{
+        position: absolute;
     }
 }
